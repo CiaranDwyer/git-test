@@ -1,0 +1,37 @@
+Full Scenario Execution Flow (Example: searching for "apple")
+
+Runner runs the test.
+
+Scenario: "Search for apple on Google" is picked.
+
+@Before hook runs → Browser launched via myDriverFactory.
+
+Step Given I am on the Google Search Page
+
+Navigates to https://www.google.com
+
+Accepts cookies if needed.
+
+Step When I type "apple" into the search box
+
+Types apple using enterSearchItem().
+
+Step And I press the search button
+
+Hits Enter key using submitSearch().
+
+Step Then I should see the search results
+
+Checks the page title to confirm search succeeded.
+
+@After hook runs → Browser is closed with quitDriver().
+
+✅ Summary
+Component	Responsibility
+Runner (myRunnerFile)	Starts the test
+Feature File	Describes test cases
+Hooks	Setup and teardown of browser
+Driver Factory	Manages browser instance
+Base Class	Provides common methods and shared WebDriver
+Page Object	Handles page-specific UI interactions
+Step Definitions	Glue between Gherkin and Java code

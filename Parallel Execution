@@ -1,0 +1,68 @@
+✅ Parallel Execution Setup – Quick Checklist
+🔧 Project Configuration
+
+ Use JUnit 5 (junit-platform-suite)
+
+ Add cucumber-junit-platform-engine dependency
+
+ Add Cucumber features and step definitions as normal
+
+⚙️ Test Runner Setup
+
+ Create RunCucumberTest.java
+
+Annotate with @Suite, @IncludeEngines("cucumber")
+
+Add @ConfigurationParameter:
+
+PARALLEL_EXECUTION_ENABLED_PROPERTY_NAME = true
+
+PARALLEL_CONFIG_FIXED_PARALLELISM_PROPERTY_NAME = 4 (or as needed)
+
+Use @SelectClasspathResource("features")
+
+📦 pom.xml Requirements
+
+ Add dependencies:
+
+cucumber-java
+
+cucumber-junit-platform-engine
+
+junit-platform-suite
+
+selenium-java
+
+webdrivermanager
+
+ Java version set (e.g., 17)
+
+ maven-surefire-plugin present
+
+🧠 Thread Safety
+
+ Use ThreadLocal<WebDriver> in DriverFactory   <- READ UP ON THREAD <WEBDRIVER> FOR PARALLEL EXECUTION, BIT OF CONFIGURATION REQUIRED
+
+ Each thread gets its own browser instance
+
+🔄 Hooks
+
+ Add @Before to initialize driver
+
+ Add @After to quit driver
+
+ Keeps tests isolated between threads
+
+🏁 Execution
+
+ Run with mvn clean test
+
+ Tests now run in parallel threads
+
+✅ Optional (Advanced)
+
+ Use environment variable to control thread count
+
+ Group tests via tags (@smoke, @regression) for parallel control
+
+ Add parallel report plugin (e.g., cucumber-reporting)

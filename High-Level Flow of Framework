@@ -1,0 +1,17 @@
+The test begins when the Cucumber runner class is executed.
+
+Cucumber reads the feature file and identifies the scenarios and steps to run.
+
+Before each scenario:
+
+The @Before hook runs → sets up the browser using Selenium.
+
+During each scenario:
+
+Cucumber matches each step in the feature file with step definitions.
+
+Your Page Object classes are used to interact with the browser.
+
+After each scenario:
+
+The @After hook runs → quits and cleans up the browser.

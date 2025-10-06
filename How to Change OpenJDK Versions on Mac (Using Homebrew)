@@ -1,0 +1,49 @@
+# How to Change OpenJDK Versions on Mac (Using Homebrew)
+
+# 1. Check installed Java versions
+/usr/libexec/java_home -V
+
+# 2. Find Homebrew-installed OpenJDK paths
+brew --prefix openjdk@17
+brew --prefix openjdk@21
+
+# 3. Set your desired Java version (example: Java 21)
+# Open your shell config file (~/.bash_profile or ~/.zshrc) in a text editor
+# Then add or update these lines:
+
+export JAVA_HOME=$(/usr/libexec/java_home -v21)
+export PATH=$JAVA_HOME/bin:$PATH
+
+# 4. Apply changes immediately
+source ~/.bash_profile    # or source ~/.zshrc depending on your shell
+
+# 5. Verify the active Java version
+java -version
+echo $JAVA_HOME
+
+# How to Make Your JVM Locate Homebrew-installed OpenJDK
+
+# Homebrew installs OpenJDK under:
+# /usr/local/opt/openjdk@<version>
+# or
+# /usr/local/Cellar/openjdk@<version>/<version>/libexec/openjdk.jdk/Contents/Home
+
+# Use macOS java_home to dynamically set JAVA_HOME to Homebrew-installed versions:
+
+export JAVA_HOME=$(/usr/libexec/java_home -v<version>)
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Optional: Create aliases for easy switching between Java versions
+# Add these to your shell config file:
+
+alias usejava17='export JAVA_HOME=$(/usr/libexec/java_home -v17) && export PATH=$JAVA_HOME/bin:$PATH'
+alias usejava21='export JAVA_HOME=$(/usr/libexec/java_home -v21) && export PATH=$JAVA_HOME/bin:$PATH'
+
+# Then switch versions by running:
+# usejava17
+# usejava21
+
+# Check which Java executable is currently used:
+which java
+
+# Consider removing old or manual Java installs if they cause conflicts
