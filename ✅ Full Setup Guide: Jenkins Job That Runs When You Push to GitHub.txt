@@ -145,3 +145,4 @@ Build trigger is enabled in the Jenkins job
 Private repo issues?
 Use a GitHub personal access token
  with repo permissions when adding Git credentials in Jenkins.
+ .
