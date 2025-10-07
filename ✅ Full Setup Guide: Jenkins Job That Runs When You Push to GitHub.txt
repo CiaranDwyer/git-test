@@ -1,0 +1,147 @@
+✅ Full Setup Guide: Jenkins Job That Runs When You Push to GitHub
+
+This guide helps you set up Jenkins to automatically run a job when code is pushed to GitHub. No complex terms — just clear steps anyone can follow.
+
+🚀 What You’ll Need:
+
+Jenkins installed and running locally (http://localhost:8080)
+
+A GitHub account with a repo (public or private)
+
+Ngrok to expose Jenkins to GitHub
+
+Git installed (optional but helpful)
+
+🔧 Step-by-Step Instructions
+1. Start Jenkins
+
+Make sure Jenkins is running. Open this in your browser:
+
+http://localhost:8080
+
+2. Start Ngrok to Expose Jenkins
+
+In a terminal window, run:
+
+ngrok http 8080
+
+
+Leave this terminal open. You’ll see a link like:
+
+https://abcd1234.ngrok-free.app
+
+
+This makes your local Jenkins visible to GitHub.
+
+3. Create a New Jenkins Job
+
+Go to Jenkins dashboard
+
+Click “New Item”
+
+Enter a name like My-GitHub-Job
+
+Choose “Freestyle project”
+
+Click OK
+
+4. Link Jenkins to GitHub
+
+Inside your job config:
+
+Scroll to Source Code Management
+
+Choose Git
+
+In Repository URL, enter your GitHub HTTPS URL
+Example:
+
+https://github.com/yourusername/your-repo.git
+
+
+If the repo is private:
+
+Click Add > Jenkins
+
+Use your GitHub username and a personal access token
+ instead of a password
+
+5. Add a Build Step
+
+Scroll to Build section
+
+Click “Add build step” > “Execute shell”
+
+Example command (Linux/macOS):
+
+echo "Code has been pushed!"
+ls
+
+
+For Windows, use “Execute Windows batch command” instead.
+
+6. Enable GitHub Trigger
+
+Scroll to Build Triggers
+
+Check this box: ✅ “GitHub hook trigger for GITScm polling”
+
+7. Save the Job
+
+Click “Save” at the bottom.
+
+8. Create a Webhook in GitHub
+
+Go to your GitHub repo
+
+Click Settings > Webhooks > Add webhook
+
+Fill it out like this:
+
+Payload URL:
+
+https://your-ngrok-subdomain.ngrok-free.app/github-webhook/
+
+
+Content type:
+
+application/json
+
+
+Secret: leave blank (optional)
+
+Events:
+Leave on "Just the push event"
+
+Click “Add Webhook”
+
+9. Test It! 🚨
+
+Go to your GitHub repo
+
+Make a small change (edit a file)
+
+Commit and push it
+
+🔍 Go back to Jenkins — you should see your job running automatically!
+
+🛠 Troubleshooting
+
+Webhook not working?
+Go to GitHub → Settings > Webhooks > Click webhook > “Recent Deliveries”
+Check if GitHub is showing a green tick or error.
+
+Job not triggering?
+Double-check:
+
+Ngrok is still running
+
+Jenkins is running
+
+URL ends in /github-webhook/
+
+Build trigger is enabled in the Jenkins job
+
+Private repo issues?
+Use a GitHub personal access token
+ with repo permissions when adding Git credentials in Jenkins.
